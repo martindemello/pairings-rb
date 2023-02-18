@@ -1,7 +1,6 @@
 require 'graph_matching'
 
 module Pairings
-
   Candidate = Struct.new(:repeats, :distance, :name1, :name2)
 
   Pair = Struct.new(:name1, :name2, :repeats)
@@ -14,7 +13,7 @@ module Pairings
     end
 
     def to_s
-      @groups.map {|g| g.map {|p| "#{p.name}: #{p.win_count}"}}.to_s
+      @groups.map { |g| g.map { |p| "#{p.name}: #{p.win_count}" } }.to_s
     end
 
     def self.from_standings(standings)
@@ -28,7 +27,7 @@ module Pairings
       # balance groups
       ret.balance!
       ret.compact!
-      return ret 
+      return ret
     end
 
     def length
@@ -78,11 +77,11 @@ module Pairings
     def merge_bottom!
       # Merge the last two groups
       return if groups.length == 1
+
       last = groups.pop
       groups.last.concat(last)
     end
-  end  # class Groups
-
+  end # class Groups
 
   def _pair_swiss_initial(standings)
     pairings = []
@@ -100,13 +99,14 @@ module Pairings
       candidates[i] = []
       0.upto(top.length - 1) do |j|
         next if i == j
+
         reps = repeats.get(top[i].name, top[j].name)
         if reps < nrep
           c = Candidate.new(reps, (i - j).abs, top[j].name, top[i].name)
           candidates[i] << c
         end
         for c in candidates
-          c.sort_by! {|x| [x.repeats, x.distance]}
+          c.sort_by! { |x| [x.repeats, x.distance] }
         end
       end
     end
@@ -116,7 +116,7 @@ module Pairings
   def generate_matching(edges)
     # All the weights need to be positive
     m = edges.map(&:last).min || 0
-    edges = edges.map {|v1, v2, w| [v1, v2, w - m] }
+    edges = edges.map { |v1, v2, w| [v1, v2, w - m] }
     g = GraphMatching::Graph::WeightedGraph[*edges]
     g.maximum_weighted_matching(true).edges
   end
@@ -159,7 +159,7 @@ module Pairings
 
       players = pd.standings_after_round(rp.start_round)
       names = {}
-      players.each {|p| names[p.name] = p}
+      players.each { |p| names[p.name] = p }
       groups = Groups.from_standings(players)
       nrep = 1
       paired = []
@@ -192,6 +192,7 @@ module Pairings
             # We have an unpaired candidate; increase the rep count
             nrep += 1
             break if groups.length == 1
+
             next
           end
           groups.groups.shift
@@ -205,7 +206,7 @@ module Pairings
           out << p
         end
       end
-      out.map {|p| [names[p.name1], names[p.name2]]}
+      out.map { |p| [names[p.name1], names[p.name2]] }
     end
   end
 end

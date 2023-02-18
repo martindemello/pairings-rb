@@ -1,7 +1,5 @@
 module Pairings
-
   module Strategies
-
     # -----------------------------------------------------
     # King of the Hill
 
@@ -10,7 +8,6 @@ module Pairings
       standings = pd.standings_after_round(rp.start_round)
       return standings.each_slice(2)
     end
-
 
     # -----------------------------------------------------
     # Queen of the Hill
@@ -39,6 +36,5 @@ module Pairings
       end
       return pairings
     end
-
   end
 end

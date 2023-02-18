@@ -1,5 +1,4 @@
 module Pairings
-  
   # -------------------
   # Quads
 
@@ -72,7 +71,6 @@ module Pairings
   end
 
   module Strategies
-
     def pair_clustered_quads(rp)
       pairing_quads(rp) do |quads, standings, max|
         for i in (0...max).step(4)
@@ -122,6 +120,5 @@ module Pairings
         end
       end
     end
-
   end  # module Strategies
 end

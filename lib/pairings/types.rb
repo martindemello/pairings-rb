@@ -1,8 +1,6 @@
 module Pairings
-
   #---------------------------------------------
   # Input and output datatypes
-  
 
   # Input player
   Player = Struct.new(:name, :rating)
@@ -14,17 +12,15 @@ module Pairings
   )
 
   RoundPairing = Struct.new(:round, :start_round, :strategy)
-  
+
   # Input tournament
   Tournament = Struct.new(:game_results, :players, :round_pairings)
 
   # Output pairing
   Pairing = Struct.new(:player1, :player2, :repeats)
 
-
   #---------------------------------------------
   # Internal datatypes
-  
 
   # Cumulative stats for a player
   PlayerStats = Struct.new(
@@ -39,7 +35,6 @@ module Pairings
     end
   end
 
-
   # A single game result for a player
   Result = Struct.new(:name, :score, :opp_score, :start) do
     def spread
@@ -47,10 +42,8 @@ module Pairings
     end
   end
 
-  
   # A collection of results
   class Results
-    
     attr_accessor :players, :rounds, :results
 
     def initialize
@@ -96,7 +89,7 @@ module Pairings
     end
 
     def standings
-      players.values.sort_by {|p| -p.score}
+      players.values.sort_by { |p| -p.score }
     end
 
     def last_round
@@ -104,10 +97,8 @@ module Pairings
     end
   end
 
-
   # Repeats tracker
   class Repeats
-
     attr_reader :matches
 
     def initialize
@@ -128,13 +119,10 @@ module Pairings
       key = [p1, p2].sort
       matches[key]
     end
-
   end
-
 
   # Starts tracker
   class Starts
-
     attr_reader :starts, :round_starts
 
     def initialize(data)
@@ -169,20 +157,17 @@ module Pairings
       end
       p1_starts
     end
-
   end
-
 
   # Raw data for pairing
   class Data
-    
     attr_reader :game_results, :players, :repeats
 
     def initialize(tournament)
       @game_results = tournament.game_results
       @players = tournament.players
       @player_lookup = {}
-      @players.each {|p| @player_lookup[p.name] = p}
+      @players.each { |p| @player_lookup[p.name] = p }
       @repeats = Repeats.new
     end
 
@@ -202,7 +187,7 @@ module Pairings
       if round == 0
         seeding
       else
-        results_after_round(round).standings.map {|p| @player_lookup[p.name]}
+        results_after_round(round).standings.map { |p| @player_lookup[p.name] }
       end
     end
 
@@ -223,7 +208,5 @@ module Pairings
         end
       end
     end
-
   end
-
 end

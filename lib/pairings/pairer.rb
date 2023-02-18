@@ -22,7 +22,6 @@ require_relative 'pair_rr'
 require_relative 'pair_swiss'
 
 module Pairings
-
   # Pair a tournament
   class Pairer
     include Strategies
@@ -53,6 +52,7 @@ module Pairings
 
     def pair_round(rp)
       return [] unless can_pair(rp)
+
       strategy = self.method("pair_#{rp.strategy}")
       strategy.call(rp)
     end
@@ -70,7 +70,7 @@ module Pairings
 
     def process_finished_round(rp)
       # Collect repeats for finished rounds
-      grs = pd.game_results.select {|gr| gr.round_number == rp.round}
+      grs = pd.game_results.select { |gr| gr.round_number == rp.round }
       grs.each do |gr|
         pd.repeats.add_game_result(gr)
       end
@@ -90,5 +90,4 @@ module Pairings
       pairings
     end
   end
-
 end

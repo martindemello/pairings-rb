@@ -1,5 +1,4 @@
 module Pairings
-
   def _pair_rr(n, r)
     # Pair n players at round r
     init = 1.upto(n).to_a
@@ -14,7 +13,6 @@ module Pairings
   end
 
   module Strategies
-
     # -----------------------------------------------------
     # Round Robin
 
@@ -28,12 +26,11 @@ module Pairings
       pairings = []
       pos = rp.round - rp.start_round
       h1, h2 = _pair_rr(n, pos)
-      for i in 0...(n/2)
+      for i in 0...(n / 2)
         pairings << [standings[h1[i]], standings[h2[i]]]
       end
       return pairings
     end
-
 
     # -----------------------------------------------------
     # Charlottesville.
@@ -71,6 +68,5 @@ module Pairings
       end
       return pairings
     end
-
   end
 end
