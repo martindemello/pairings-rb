@@ -48,7 +48,7 @@ After running `pairer.pair`, the `pairer` object contains starts and repeats in
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/martindemello/pairings.
+Bug reports and pull requests are welcome on GitHub at https://github.com/martindemello/pairings-rb.
 
 ## License
 
