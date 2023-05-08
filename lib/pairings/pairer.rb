@@ -6,10 +6,10 @@
 # Returns an array of
 #   [[round number, pairings], ...]
 # for all pairable rounds, where pairings is itself an array of
-#   [Pairing::Pairing(player1, player2, repeats), ...]
+#   [Pairing(player1, player2, repeats), ...]
 #
 # The Pairer will contain statistics of starts and repeats in `pairer.starts`
-# and `pairer.pd.repeats` respectively.
+# and `pairer.repeats` respectively.
 #
 # Individual pairing strategies can be found in the pair_basic etc files, and
 # are implemented as methods named `pair_*`, which should take in a
@@ -46,6 +46,10 @@ module Pairings
         end
       end
       ret
+    end
+
+    def repeats
+      pd.repeats
     end
 
     private

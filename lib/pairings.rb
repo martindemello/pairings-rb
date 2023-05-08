@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 require_relative "pairings/version"
+require_relative "pairings/types"
+require_relative "pairings/pairer"
 
 module Pairings
-  class Error < StandardError; end
-  # Your code goes here...
+  # See lib/pairings/pairer.rb for the entry point
 end
